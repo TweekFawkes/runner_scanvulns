@@ -1,0 +1,22 @@
+runner:
+  name: Scan Script Vuln
+  description: Scan Script Vuln (-sV --script vuln)
+  version: 0.0.1
+
+build:
+  commands: |
+    echo "START: Building the runner"
+    apt install -y nmap
+    echo "END: Building the runner"
+
+webform:
+  - name: ip_address
+    prompt: IP Address
+    type: text
+  - name: tcp_port
+    prompt: TCP Port
+    type: text
+
+launch:
+  type: binary
+  command: /usr/bin/nmap -Pn -n -sV --script vuln -p ${tcp_port} --reason -oA outputs/ ${ip_address}
